@@ -57,3 +57,4 @@ print(math.log(8,2)) #log 2 tabanında 8 nedir 7
 
 import cmath
 #complex math
+
