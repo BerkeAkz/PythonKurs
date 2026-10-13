@@ -73,5 +73,29 @@ print("-------------------------------")
 print("-------------------------------")
 print("-------------------------------")
 
-#polimorfizim (çok biçimlilik)
+#abstrack class (soyut sınıf)
+#Bir şablon görevi görür bir standarta oturmaya çalışır
+#önceden belirlenen şeyleri kullanmak zorunda yoksa hata verir
 
+from  abc import  ABC, abstractmethod
+
+class Shape(ABC):
+    @abstractmethod
+    def area(self):
+        pass
+
+    @abstractmethod
+    def perimeter(self):
+            pass
+
+
+class Rectangle(Shape):
+    def __init__(self,w,h):
+        self.width=w
+        self.height=h
+        
+    def area(self):
+        return self.width*self.height
+
+    def perimeter(self):
+        return 2*(self.width+self.height)
