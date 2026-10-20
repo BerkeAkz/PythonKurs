@@ -1,5 +1,5 @@
 #try 
-
+x=7
 try: #deneme sınama
     print(x)
 except: #hata olursa bura yakalara ve bu bloğun içi çalışır
