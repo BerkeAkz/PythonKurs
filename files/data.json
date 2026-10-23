@@ -1,0 +1,8 @@
+{
+    "name":"Berke", 
+    "age":"21",
+    "city":"Zonguldak",
+    "hobbies":[
+        "Kodlama","Spor","futbol"
+    ]
+}
