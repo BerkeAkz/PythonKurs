@@ -1,99 +1,36 @@
-#dosya oluştuma Ve Okuma işlemleri
+#Bir Apıden json Verileri çekmek 
+import requests
 
-f=open("Files/demo.txt","r",encoding="utf-8") 
-# 1. parametre dosya adı 
-# 2.parametre modlardır ve bu modlar şu sekilde
-"""
-r okuma modu varsayılan budur dosya yoksa hata verir 
-t metin modunur buda varsayılandır bişi yazmassak rt şeklindedir
-w yazma modudur yazma için dosya açar dosya yoksa oluşturur eğer varsa o dosya içeriğini siler üzerine yazar
-a ekleme modudur eklemek için bir dosya açar dosya yoksa oluşturur
+my_url='https://jsonplaceholder.typicode.com/todos'
 
-3. parametre encoding  utf-8 ile türkçe karakter  
-"""
+result=requests.get(my_url)
 
-print(f.read()) 
-# read metodu tüm dosyayı okur eğer sadece 10 karakter okumak isteseydik Read(10) yazmalıydık
-
-print("-----------------------")
-print("-----------------------")
-
-f=open("Files/demo.txt","r",encoding="utf-8") 
-print(f.readline()) #satır satır okur bu 1. satırı getirir
-print(f.readline()) #bu 2. satırı getirir 
-
-print("-----------------------")
-print("-----------------------")
-
-f=open("Files/demo.txt","r",encoding="utf-8") 
-
-for line in f:
-    print(line,end="")
+result=result.json() #json metoduyla json verilerini dönüştürdü
 
 
-print("-----------------------")
-print("-----------------------")
+#print(result) tüm listeyi getirir
 
-f=open("Files/demo.txt","r",encoding="utf-8") 
+print(result[0]["id"])
+print(result[0]["title"]) 
 
-for line in f.readlines():
-    print(line,end="")
+print("-----------")
 
-
-#seek metodu imleçinin yerini ayarlar 
-f.seek(0)
-
-print("-------------")
-#Dosya açık mı değil mi kontrol 
-print(f.closed)# FAlse
+for item in result:
+    print(f"{item["id"]}--{item["title"]}")
 
 
-f.close() #Dosyayı kapatır 
+#uygulama
+excharge_currency=input("Enter excharge currency:")
+foreign_excharge_received=input("enter excharge received:")
+amount=int(input("How Many money Do You Want to Excharge:"))
 
-print(f.closed) #true
-#with ile kullanım
+my_url=f'https://v6.exchargerate-api.com/v6/***/latest/{excharge_currency}'
 
-with open("Files/demo.txt",encoding="utf-8") as f: #önceden open yapar  sonra close yapmak gerekirdi with ile close yapmaya gerek yok 
-    print(f.read(10))
-    print(f.tell()) #imlecin nerde olduğu verir anlık
-    print(f.read(10))
-    print(f.tell())
-print("-----------------")
+result=requests.get(my_url)
 
-with open("Files/demo.txt",encoding="utf-8") as f:
-    for line in f:
-        print(line,end="")
+result=result.json()
 
+new_amount=amount*result["conversion_rates"][foreign_excharge_received]
 
-print("-----------------")
+print(f"{amount}{excharge_currency}={new_amount:..2f}{foreign_excharge_received}")
 
-with open("Files/demo.txt","r",encoding="utf-8") as f:
-    print(f.readable()) #dosyam okulanabilir modda mı True
-
-print("-----------------")
-
-with open("Files/demo.txt","w",encoding="utf-8") as f:
-    f.write("How is it going\n") #önceki içeriği siler ve yazılanı yazar 
-
-with open("Files/demo.txt","r",encoding="utf-8") as f:
-    print(f.read())
-
-
-print("-----------------")
-with open("Files/demo.txt","a",encoding="utf-8") as f:
-    f.write("Öncekinin üzerine Eklenecek\n") 
-
-with open("Files/demo.txt","r",encoding="utf-8") as f:
-    print(f.read())
-
-print("-----------------")
-
-with open("Files/demo.txt","w+",encoding="utf-8") as f: # hem yaazılabilir hemde okunabilir dosya açtık aynı with altında hem yazdık hem okuduk
-    f.write("Yeni Dosya")                               # ekleme yapmak istersek onun yerine a+ yapmamız lazım
-    f.seek(0)
-    print(f.read())
-
-with open("Files/demo.txt","r+",encoding="utf-8") as f: # bunda da hem okuma hem yazma işlemini yapar 
-    f.write("Yeni Dosya")                               #w+ siler bu silmeden ekleme işleminide yapar hem okur hem yazar
-    f.seek(0)
-    print(f.read())
