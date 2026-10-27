@@ -1,68 +1,81 @@
-#BeautifulSoup modulu 
-
-
-my_html="""<!DOCTYPE html>
+#BeautifulSoup 
+my_html_doc="""
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon Dijital Saat</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #0f172a; /* Koyu lacivert arka plan */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        .card {
-            background: #1e293b;
-            padding: 40px 60px;
-            border-radius: 20px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 
-                        0 0 20px rgba(56, 189, 248, 0.2);
-            border: 1px solid #334155;
-        }
-
-        .time {
-            font-size: 5rem;
-            font-weight: bold;
-            color: #38bdf8; /* Neon mavi */
-            text-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-            letter-spacing: 4px;
-            margin-bottom: 10px;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .date {
-            font-size: 1.2rem;
-            color: #94a3b8;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-    </style>
+    <title>Python | Berke Akgöz </title>
 </head>
 <body>
+    <h1>Python Eğitimi </h1>
+    <div id="first id">
+        <h2>Html Sayfası</h2>
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
 
-    <div class="card">
-        <div class="time" id="timeDisplay">00:00:0
+    </div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At culpa, cum hic veniam eligendi vel,
+         explicabo accusantium molestiae aliquid dignissimos nemo natus corporis quo unde eum earum consequatur voluptates quaerat.
+    </p>
+     <div class="mylinks">
+        <h2>Css Sayfası</h2>
+        <a href="http://example.com">Link1</a>
+        <a href="http://example.com">link2</a>
+        <a href="http://example.com">link3</a>
+     </div>
+</body>
+</html>
 """
-
 from bs4 import BeautifulSoup
-soup=BeautifulSoup(my_html,'html.parser')
 
-result=soup.prettify()
+soup=BeautifulSoup(my_html_doc,'html.parser')
 
-print(result.title)
+result=soup.prettify() #tüm html dökümanını aldık 
+print(result)
+
+print(soup.title) #htmldeki title aldık
+print(soup.title.string) #titlenın içindeki stringi getirir
+print("----------------------")
+print(soup.head) #head istersek body istersek body kod blogunu getirir 
+print(soup.h2.string) #birden fazla aynı etiket varsa ilkini getirir 
+print("----------------------")
+print(soup.find_all("h2")) #birden fazla varsa ve hepsini görmek istersek find_all() metodunu kullanmalıyız 
+print(soup.find_all("h2")[1])#eğer ikinciyi istiyorsak dizi mantığı 1 0dır 2. ise 1dir bu şekilde ulaşırız
+print("----------------------")
+result=soup.find_all("div") #tüm divleri liste olarak döndürür
+
+for item in result:
+    print(item)
+
+print("----------------------")
+
+result=soup.find_all("div")[0].ul #ilk divimin içindeki ul getirir
+print(result)
+
+print("----------------------")
+
+result=soup.find_all("div")[0].ul.find_all("li") #ilk divimin içindeki ullerin içindeki li getir
+print(result)
+
+for item in result:  #ilk divimin içindeki ullerin içindeki lilerin stringleri yazdırır
+    print(item.string) 
+
+print("---------------------")
+
+result=soup.div.findChildren() #birinci divin cocuklarını getir(Hiyerarşı mantığı)
+print(result)
+
+print("---------------------")
+
+#result=soup.div.next_sibling() #Sıradaki kardeşini getir diyor yani öbür div 
+
+#print(result)
+print("---------------------")
 
 
-print(soup.head.parent.name)

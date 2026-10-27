@@ -1,3 +1,4 @@
+#requests modulunu
 import requests
 my_url='https://w3schools.com/python/demopage.js' 
 result=requests.get(my_url,) 
