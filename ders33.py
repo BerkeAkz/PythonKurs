@@ -8,7 +8,7 @@ my_html_doc="""
 </head>
 <body>
     <h1>Python Eğitimi </h1>
-    <div id="first id">
+    <div id="first_id">
         <h2>Html Sayfası</h2>
         <ul>
             <li>1</li>
@@ -60,5 +60,14 @@ print(soup.title.parent.parent) #onunda parenti htmldir
 print("---------------------")
 print(soup.h1.next_sibling.next_sibling) #arada\n var onlara dikkat ileri kardeşler arası dolaşma 
 
-print(soup.a.previous_sibling.previous_sibling)
+print(soup.a.previous_sibling.previous_sibling) #geriye doğru kardeşine gider h2dir 
 
+print("---------------------------------")
+print("---------------------------------")
+print("---------------------------------")
+print(soup.find_all(["a","p"])) #hem paragrafı hemde linki getirir
+print("---------------------------------")
+print("---------------------------------")
+print(soup.css.select("#first_id")) #idsi first_id olanı getir
+print("---------------------------------")
+print(soup.css.select("body a")) #body içerindeki linkleri getir
